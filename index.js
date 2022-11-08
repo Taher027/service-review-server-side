@@ -15,12 +15,15 @@ app.use(express.json());
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.iitoxlh.mongodb.net/?retryWrites=true&w=majority`;
 
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
-client.connect(err => {
-    const collection = client.db("test").collection("devices");
-    // perform actions on the collection object
-    client.close();
-});
-
+async function run() {
+    try {
+        
+    }
+    catch {
+        
+    }
+}
+run().catch(err => console.log(err.type, err.message ))
 
 app.get('/', (req, res) => {
     res.send('server is running')
