@@ -17,7 +17,11 @@ const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 async function run() {
     try {
+
+        // service related api 
+
         const serviceCollection = client.db('artSnap').collection('services');
+        const reviewsCollection = client.db('artSnap').collection('reviews');
         app.get('/home', async (req, res) => {
             const query = {};
             const limit = 3;
@@ -38,6 +42,15 @@ async function run() {
             const services = await cursor.toArray();
             res.send(services)
         })
+
+        // reviews api
+        app.post('/reviews', async (req, res) => {
+            const review = req.body;
+            const result = await reviewsCollection.insertOne(review)
+            res.send(result);
+        })
+
+
     }
     finally {
 
